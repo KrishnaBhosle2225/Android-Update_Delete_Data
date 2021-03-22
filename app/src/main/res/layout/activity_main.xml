@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CD9D56"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serchname"
+        android:hint="Enter Name to be search"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="search"
+        android:id="@+id/search"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details"
+        android:text="Update Data"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="#D11717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/fname"
+        android:hint="first name"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/edit_box"
+        android:layout_marginTop="3dp"
+        android:textColor="#171717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/lname"
+        android:hint="last name"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_box"
+        android:textSize="20sp"
+        android:textColor="#171717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/address"
+        android:hint="address"
+        android:gravity="center"
+        android:background="@drawable/edit_box"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="#171717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/email"
+        android:hint="email"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_box"
+        android:textSize="20sp"
+        android:textColor="#171717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/mobile"
+        android:hint="mobile"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/edit_box"
+        android:layout_marginTop="10dp"
+        android:textColor="#171717"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/password"
+        android:layout_marginTop="10dp"
+        android:hint="password"
+        android:gravity="center"
+        android:background="@drawable/edit_box"
+        android:textSize="20sp"
+        android:textColor="#171717"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="update"
+        android:layout_marginTop="10dp"
+        android:id="@+id/update"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
