@@ -3,6 +3,7 @@ package com.krishna.update_delete_data;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -136,55 +137,74 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateData() {
 
-        StringRequest request = new StringRequest(Request.Method.POST, updateUrl, new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, updateUrl, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject object = new JSONObject(response);
+            public void onResponse(String response)
+            {
 
-                    int success = object.getInt("sucess");
-                    if (success == 0)
-                    {
-                        Toast.makeText(MainActivity.this,object.getString("message"),Toast.LENGTH_LONG).show();
-                    }
-                    else if (success == 1)
-                    {
-                        Toast.makeText(MainActivity.this,object.getString("message"),Toast.LENGTH_LONG).show();
-                    }
-                    else if (success == 2)
-                    {
-                        Toast.makeText(MainActivity.this,object.getString("message"),Toast.LENGTH_LONG).show();
-                    }
-                }
-                catch (Exception e)
+                try
                 {
-                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                    JSONObject jsonObject=new JSONObject(response);
 
+                    int sucess=jsonObject.getInt("sucess");
+
+                    if(sucess==1)
+                    {
+                        firstName.setText("");
+                        lastName.setText("");
+                        address.setText("");
+                        email.setText("");
+                        mobile.setText("");
+                        password.setText("");
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+
+                    }
+                    else if(sucess==2)
+                    {
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                    else if(sucess==3)
+                    {
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+
+                    Toast.makeText(MainActivity.this,"Exception....",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
                 Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+
             }
         })
         {
-            @Nullable
             @Override
-            protected Map<String, String> getPostParams() throws AuthFailureError {
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
 
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("fName",firstName.getText().toString().trim());
-                params.put("lName",lastName.getText().toString().trim());
-                params.put("address",address.getText().toString().trim());
-                params.put("email",email.getText().toString().trim());
-                params.put("mobile",mobile.getText().toString().trim());
-                params.put("password",password.getText().toString().trim());
-                return params;
+                param.put("firstname",firstName.getText().toString().trim());
+                param.put("lastname",lastName.getText().toString().trim());
+                param.put("address",address.getText().toString().trim());
+                param.put("email",email.getText().toString().trim());
+                param.put("mobile",mobile.getText().toString().trim());
+                param.put("password",password.getText().toString().trim());
+                return param;
+
             }
         };
 
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(request);
+        RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
     }
 }
