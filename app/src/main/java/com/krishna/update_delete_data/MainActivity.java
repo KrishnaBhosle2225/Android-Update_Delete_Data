@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String fetchUrl = "http://10.0.2.2/android_php/fetchData.php";
     private static final String updateUrl = "http://10.0.2.2/android_php/updateData.php";
+    private static final String deleteUrl = "http://10.0.2.2/android_php/deleteData.php";
     EditText searchName,firstName,lastName,address,email,mobile,password;
     String First,Last,Address,Email,Mobile,Password;
-    Button search,update;
+    Button search,update,delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         search = findViewById(R.id.search);
         update = findViewById(R.id.update);
+        delete = findViewById(R.id.delete);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +67,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                deleteData();
+            }
+        });
     }
+
+
 
 
     private void fetchData() {
@@ -201,6 +213,73 @@ public class MainActivity extends AppCompatActivity {
                 param.put("password",password.getText().toString().trim());
                 return param;
 
+            }
+        };
+
+        RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void deleteData() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, deleteUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject jsonObject=new JSONObject(response);
+
+                    int sucess=jsonObject.getInt("sucess");
+
+                    if(sucess==1)
+                    {
+                        firstName.setText("");
+                        lastName.setText("");
+                        address.setText("");
+                        email.setText("");
+                        mobile.setText("");
+                        password.setText("");
+                        searchName.setText("");
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+
+                    }
+                    else if(sucess==2)
+                    {
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                    else if(sucess==3)
+                    {
+                        Toast.makeText(MainActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+
+                    Toast.makeText(MainActivity.this,"e.getMessage()",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(MainActivity.this,"error "+error,Toast.LENGTH_LONG).show();
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String,String> param=new HashMap<String,String>();
+
+                param.put("sName",firstName.getText().toString().trim());
+                return param;
             }
         };
 
